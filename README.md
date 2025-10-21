@@ -3,7 +3,7 @@
 ## Project Description
 This project is a simple **RESTful API** built with **Spring Boot**, **Maven**, and **Java 17**, designed to manage orders to face the MELI E-commerce company problem.  
 It allows users to **create, read, update, and delete orders** stored in a database.  
-The application uses **Spring Data JPA** for database interactions and **H2** for development purposes.
+The application includes environment-specific configurations, Swagger documentation, and automated testing to ensure functionality and reliability.
 
 ---
 
@@ -17,7 +17,7 @@ The application uses **Spring Data JPA** for database interactions and **H2** fo
 - Ready for GitHub deployment
 - Environment-specific profiles (dev, test, prod)
 - Dynamic configuration via system environment variables
-
+- Unit and integration tests with JUnit 5, MockMvc, and Spring Boot Test
 ---
 
 ## Installation
@@ -69,20 +69,22 @@ orders-api/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/orders/
-│   │   │   ├── OrdersApplication.java       # Main application that works as an executable class
-│   │   │   ├── controller/                  # REST controllers
-│   │   │   │   └── OrderController.java
-│   │   │   ├── model/                       # Entity models to define the database parameters
-│   │   │   │   └── Order.java
-│   │   │   └── repository/                  # JPA dependency repositories
-│   │   │       └── OrderRepository.java
+│   │   │   ├── OrdersApplication.java       # Main application class
+│   │   │   ├── controller/OrderController.java
+│   │   │   ├── model/Order.java
+│   │   │   └── repository/OrderRepository.java
 │   │   └── resources/
-│   │       ├── application.yml              # Default configuration when running the app
+│   │       ├── application.yml              # Default configuration
 │   │       ├── application-dev.yml          # Development profile
 │   │       ├── application-test.yml         # Testing profile
 │   │       └── application-prod.yml         # Production profile
+│   └── test/
+│       └── java/com/orders/
+│           ├── controller/OrderControllerTest.java
+│           └── repository/OrderRepositoryTest.java
 ├── pom.xml                                  # Maven project file
 └── README.md                                # Project documentation
+
 ```
 
 ## Environment Profiles
@@ -117,10 +119,29 @@ GET http://localhost:8080/orders/profile
 **Response example:**
 <img width="2014" height="419" alt="image" src="https://github.com/user-attachments/assets/daeca68c-8d35-4c8e-a5c5-7399d9d0c7c6" />
 
+## Swagger / OpenAPI Documentation
+The API is fully documented using Springdoc OpenAPI (Swagger UI).
+Once the app is running, access:
+```
+http://localhost:8080/swagger-ui.html
+```
+Once it is accessed, you can interact with and test each endpoint directly from your browser.
 
- ## Future Improvements
- - Switch to a production-grade database (PostgreSQL or MySQL).
- - Include Swagger/OpenAPI documentation.
+## Testing
+This project includes unit and integration tests using JUnit 5, MockMvc, and AssertJ.
+
+**Run all tests**
+```
+./mvnw test
+```
+**Test coverage**
+
+| Test Class            | Purpose                                                        |
+| --------------------- | -------------------------------------------------------------- |
+| `OrderRepositoryTest` | Validates CRUD operations of the OrderRepository class.        |
+| `OrderControllerTest` | Validates REST endpoints for success, failure, and edge cases. |
+
+All tests are designed to prove that the endpoints are working correctly.
 
 ## License
 This project is open-source and free to use.
