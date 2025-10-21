@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/ordersdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: 8082
+
+logging:
+  file:
+    name: logs/orders-prod.log
+  level:
+    root: INFO
+    com.orders: WARN
